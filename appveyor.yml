@@ -1,0 +1,33 @@
+version: 1.0.{build}
+
+image:
+  - Visual Studio 2019
+  - Visual Studio 2017
+  - Visual Studio 2015
+
+platform:
+  - x64
+  - Win32
+
+install:
+- cmd: git submodule update --init
+- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib
+
+cache: c:\tools\vcpkg\installed\
+
+before_build:
+- cmd: >-
+    md C:\projects\libbiomeval\install
+
+    cd C:\projects\libbiomeval
+
+    md build\Windows
+
+    cd build\Windows
+
+    cmake -A %PLATFORM% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install  C:\projects\libbiomeval
+
+build:
+  project: C:\projects\nfiq2\build\Windows\biomeval.sln
+  verbosity: normal
+  parallel: true
