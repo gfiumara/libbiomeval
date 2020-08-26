@@ -29,7 +29,7 @@ install:
             - cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x64-windows
             - cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x64-windows-static
 
-cache: c:\tools\vcpkg\installed\
+cache: c:\tools\vcpkg\installed\ -> appveyor.yml
 
 before_build:
 - cmd: >-
