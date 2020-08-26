@@ -11,11 +11,6 @@ jobs:
   include:
     - os: linux
       compiler: gcc
-    - os: linux
-      env: BUILD_BIOMEVAL_32BIT=ON
-      compiler: gcc
-    - os: linux
-      compiler: clang
     - os: osx
       osx_image: xcode11.3
       compiler: clang
