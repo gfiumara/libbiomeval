@@ -3,6 +3,9 @@ version: 1.0.{build}
 image:
   - Visual Studio 2017
 
+configuration:
+ - Release
+
 platform:
   - x64
   - Win32
@@ -23,14 +26,10 @@ cache: c:\tools\vcpkg\installed\
 before_build:
 - cmd: >-
     md C:\projects\libbiomeval\install
-
     cd C:\projects\libbiomeval
-
     md build\Windows
-
     cd build\Windows
-
-    cmake -A %PLATFORM% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
+    cmake -A %PLATFORM% -DCMAKE_CONFIGURATION_TYPES=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
 
 build:
   project: C:\projects\nfiq2\build\Windows\biomeval.sln
