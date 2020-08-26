@@ -25,7 +25,7 @@ before_build:
 
     cd build\Windows
 
-    cmake -A %PLATFORM% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install  C:\projects\libbiomeval
+    cmake -A %PLATFORM% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
 
 build:
   project: C:\projects\nfiq2\build\Windows\biomeval.sln
