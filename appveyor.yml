@@ -36,6 +36,6 @@ before_build:
     cmake -DCMAKE_TOOLCHAIN_FILE=C:\Tools\vcpkg\scripts\buildsystems\vcpkg.cmake -A %PLATFORM% -DCMAKE_CONFIGURATION_TYPES=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
 
 build:
-  project: C:\projects\nfiq2\build\Windows\biomeval.sln
+  project: C:\projects\libbiomeval\build\Windows\biomeval.sln
   verbosity: normal
   parallel: true
