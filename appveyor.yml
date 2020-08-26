@@ -11,7 +11,10 @@ platform:
 
 install:
 - cmd: git submodule update --init
-- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib
+- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x64-windows
+- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x64-windows-static
+- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x86-windows
+- cmd: vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg openssl sqlite3 tiff zlib --triplet x86-windows-static
 
 cache: c:\tools\vcpkg\installed\
 
