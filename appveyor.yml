@@ -14,12 +14,12 @@ install:
 - cmd: git submodule update --init
 - cmd: cd C:\Tools\vcpkg
 - cmd: git pull
-- cmd: .\bootstrap-vcpkg.bat
+- cmd: .\bootstrap-vcpkg.bat -disableMetrics
 - cmd: cd %APPVEYOR_BUILD_FOLDER%
-- cmd: if %PLATFORM% == x64 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x64-windows )
-- cmd: if %PLATFORM% == x64 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x64-windows-static )
-- cmd: if %PLATFORM% == Win32 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x86-windows )
-- cmd: if %PLATFORM% == Win32 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x86-windows-static )
+- cmd: if %PLATFORM% == x64 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x64-windows --disable-metrics )
+- cmd: if %PLATFORM% == x64 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x64-windows-static --disable-metrics )
+- cmd: if %PLATFORM% == Win32 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x86-windows --disable-metrics )
+- cmd: if %PLATFORM% == Win32 ( vcpkg install berkeleydb hwloc libjpeg-turbo libpng openjpeg sqlite3 tiff zlib --triplet x86-windows-static --disable-metrics )
 
 cache: c:\Tools\vcpkg\installed\ -> appveyor.yml
 
@@ -33,7 +33,7 @@ before_build:
 
     cd build\Windows
 
-    cmake -A %PLATFORM% -DCMAKE_CONFIGURATION_TYPES=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
+    cmake -DCMAKE_TOOLCHAIN_FILE=C:\Tools\vcpkg\scripts\buildsystems\vcpkg.cmake -A %PLATFORM% -DCMAKE_CONFIGURATION_TYPES=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=C:\projects\libbiomeval\install C:\projects\libbiomeval
 
 build:
   project: C:\projects\nfiq2\build\Windows\biomeval.sln
