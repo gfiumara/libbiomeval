@@ -81,7 +81,7 @@ jobs:
         brew install \
             berkeley-db \
             hwloc \
-            ffmepg \
+            ffmpeg \
             jpeg-turbo \
             libpng \
             libtiff \
