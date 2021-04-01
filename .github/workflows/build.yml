@@ -77,6 +77,7 @@ jobs:
     - name: Install Packages (macOS)
       if: ${{ runner.os == 'macOS' }}
       shell: bash
+      # FIXME: homebrew's open-mpi package doesn't include C++ bindings
       run: |
         brew install \
             berkeley-db \
@@ -85,7 +86,6 @@ jobs:
             jpeg-turbo \
             libpng \
             libtiff \
-            open-mpi \
             openjpeg \
             openssl \
             sqlite \
