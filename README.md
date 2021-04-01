@@ -1,6 +1,7 @@
 Biometric Evaluation Framework
 ==============================
 
+[![Build Library and Tests](https://github.com/usnistgov/libbiomeval/actions/workflows/build.yml/badge.svg)](https://github.com/usnistgov/libbiomeval/actions/workflows/build.yml)
 
 Biometric Evaluation Framework is a set of C++ classes, error codes, and design
 patterns used to create a common environment to provide logging, data
