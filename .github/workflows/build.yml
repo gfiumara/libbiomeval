@@ -138,7 +138,7 @@ jobs:
             -DBUILD_BIOMEVAL_SHARED=${BUILD_BIOMEVAL_SHARED} \
             -DBUILD_BIOMEVAL_TESTS=${BUILD_BIOMEVAL_TESTS} \
             -DBUILD_BIOMEVAL_32BIT=${BUILD_BIOMEVAL_32BIT} \
-            ${{ github.workspace }}
+            ${GITHUB_WORKSPACE}
 
     - name: Configure CMake (Multi-config Generator)
       if: ${{ runner.os == 'Windows' }}
@@ -155,7 +155,7 @@ jobs:
             -DBUILD_BIOMEVAL_SHARED=${BUILD_BIOMEVAL_SHARED} \
             -DBUILD_BIOMEVAL_TESTS=${BUILD_BIOMEVAL_TESTS} \
             -DBUILD_BIOMEVAL_32BIT=${BUILD_BIOMEVAL_32BIT} \
-            ${{ github.workspace }}
+            ${GITHUB_WORKSPACE}
 
     - name: Build (Single-config Generator)
       if: ${{ runner.os != 'Windows' }}
