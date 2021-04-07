@@ -9,6 +9,8 @@ on:
       - 'appveyor.yml'
       - 'src/test/test_data/**'
   push:
+    branch:
+      - master
     paths-ignore:
       - '.gitignore'
       - '.travis.yml'
@@ -46,14 +48,21 @@ jobs:
       with:
         submodules: false
 
+    - name: Install vcpkg
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git fresh-vcpkg
+        .\\fresh-vcpkg\\bootstrap-vcpkg.bat -disableMetrics
+
     - name: Package Cache (Windows)
       if: ${{ runner.os == 'Windows' }}
+      id: vcpkg-cache
       uses: actions/cache@v2
       with:
-        path: |
-          ${VCPKG_INSTALLATION_ROOT}/installed
-          '%USERPROFILE%/AppData/Local/vcpkg/archives'
-        key: ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg
+        path: fresh-vcpkg\installed
+        key: ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg_install
+        restore-keys: |
+          ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg_install
 
     - name: Install Packages (Linux)
       if: ${{ runner.os == 'Linux' }}
@@ -96,7 +105,8 @@ jobs:
       if: ${{ runner.os == 'Windows' }}
       shell: bash
       run: |
-        vcpkg install --triplet=${{ matrix.config.arch }}-windows-static \
+        fresh-vcpkg/vcpkg install \
+          --triplet=${{ matrix.config.arch }}-windows-static \
           berkeleydb \
           hwloc \
           libjpeg-turbo \
@@ -107,7 +117,7 @@ jobs:
           sqlite3 \
           tiff \
           zlib
-        vcpkg install --triplet=${{ matrix.config.arch }}-windows \
+        fresh-vcpkg/vcpkg install --triplet=${{ matrix.config.arch }}-windows \
           berkeleydb \
           hwloc \
           libjpeg-turbo \
@@ -148,7 +158,7 @@ jobs:
       run: |
         cmake \
             -A ${cmake_arch_flag} \
-            -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake \
+            -DCMAKE_TOOLCHAIN_FILE=../fresh-vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DCMAKE_CONFIGURATION_TYPES="${CONFIGURATION}" \
             -DBUILD_BIOMEVAL_STATIC=${BUILD_BIOMEVAL_STATIC} \
             -DBUILD_BIOMEVAL_SHARED=${BUILD_BIOMEVAL_SHARED} \
