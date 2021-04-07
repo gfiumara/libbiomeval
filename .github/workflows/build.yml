@@ -9,7 +9,7 @@ on:
       - 'appveyor.yml'
       - 'src/test/test_data/**'
   push:
-    branch:
+    branches:
       - master
     paths-ignore:
       - '.gitignore'
