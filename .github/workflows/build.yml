@@ -132,10 +132,6 @@ jobs:
     - name: Create Build Directory
       run: cmake -E make_directory ${{ github.workspace }}/build
 
-    - name: Get CMake Version
-      shell: bash
-      run: cmake --version
-
     - name: Configure CMake (Single-config Generator)
       if: ${{ runner.os != 'Windows' }}
       shell: bash
