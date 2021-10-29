@@ -29,6 +29,7 @@ jobs:
 
     runs-on: ${{ matrix.config.os }}
     strategy:
+      fail-fast: false
       matrix:
         config:
           - { os: macOS-11, arch: x64, shared: ON, force-static-deps: OFF }
