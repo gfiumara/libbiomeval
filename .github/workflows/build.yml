@@ -18,6 +18,7 @@ env:
   CONFIGURATION: Release
   BUILD_BIOMEVAL_TESTS: ON
   BUILD_BIOMEVAL_32BIT: OFF
+  VCPKG_DEFAULT_BINARY_CACHE: ${{ env.VCPKG_ROOT }}/bincache
 
 jobs:
   build:
@@ -41,7 +42,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: false
 
@@ -55,12 +56,17 @@ jobs:
     - name: Package Cache (Windows)
       if: ${{ runner.os == 'Windows' }}
       id: vcpkg-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
-        path: ${{ env.VCPKG_ROOT }}\installed
-        key: ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg_install
+        path: |
+          ${{ env.VCPKG_ROOT }}
+          !${{ env.VCPKG_ROOT }}/buildtrees
+          !${{ env.VCPKG_ROOT }}/packages
+          !${{ env.VCPKG_ROOT }}/downloads
+          !${{ env.VCPKG_ROOT }}/installed
+        key: ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg
         restore-keys: |
-          ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg_install
+          ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg
 
     - name: Install Packages (Linux)
       if: ${{ runner.os == 'Linux' }}
