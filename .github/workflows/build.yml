@@ -18,6 +18,7 @@ env:
   CONFIGURATION: Release
   BUILD_BIOMEVAL_TESTS: ON
   BUILD_BIOMEVAL_32BIT: OFF
+  VCPKG_DEFAULT_BINARY_CACHE: ${VCPKG_ROOT}/bincache
 
 jobs:
   build:
@@ -38,9 +39,6 @@ jobs:
           - { os: windows-2019, arch: x64, shared: OFF, force-static-deps: OFF }
           - { os: windows-2019, arch: x64, shared: ON, force-static-deps: OFF }
           - { os: windows-2019, arch: x86, shared: ON, force-static-deps: OFF }
-
-    env:
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ env.VCPKG_ROOT }}/bincache
 
     steps:
     - name: Checkout Code
@@ -111,6 +109,7 @@ jobs:
       if: ${{ runner.os == 'Windows' }}
       shell: bash
       run: |
+        echo ${VCPKG_DEFAULT_BINARY_CACHE}
         vcpkg install \
           --triplet=${{ matrix.config.arch }}-windows-static \
           berkeleydb \
