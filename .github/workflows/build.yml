@@ -64,12 +64,7 @@ jobs:
       id: vcpkg-cache
       uses: actions/cache@v3
       with:
-        path: |
-          ${{ env.VCPKG_ROOT }}
-          !${{ env.VCPKG_ROOT }}/buildtrees
-          !${{ env.VCPKG_ROOT }}/packages
-          !${{ env.VCPKG_ROOT }}/downloads
-          !${{ env.VCPKG_ROOT }}/installed
+        path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
         key: ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg
         restore-keys: |
           ${{ matrix.config.os }}-${{ matrix.config.arch }}-vcpkg
